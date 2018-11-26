@@ -1,6 +1,8 @@
 package com.sandroalmeida.controller;
 
+import com.sandroalmeida.service.DemoService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class DemoController {
 
+    // == fields ==
+    private final DemoService demoService;
+
+    // == constructors ==
+    @Autowired
+    public DemoController(DemoService demoService) {
+        this.demoService = demoService;
+    }
+
+    // == request methods ==
     // http://localhost:8080/todo-list/hello
     @ResponseBody
     @GetMapping("/hello")
@@ -22,7 +34,7 @@ public class DemoController {
     @GetMapping("welcome")
     public String welcome(Model model){
 
-        model.addAttribute("user", "Sandro");
+        model.addAttribute("helloMessage", demoService.getHelloMessage("Sandro"));
         log.info("model = {}", model);
 
         // prefix + name + suffix
@@ -30,9 +42,10 @@ public class DemoController {
         return "welcome";
     }
 
+    // == model attributes ==
     @ModelAttribute("welcomeMessage")
     public String welcomeMessage(){
         log.info("welcomeMessage() called");
-        return "Welcome to this Demo Application.";
+        return demoService.getWelcomeMessage();
     }
 }
