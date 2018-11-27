@@ -1,7 +1,6 @@
 package com.sandroalmeida.model;
 
 import lombok.NonNull;
-import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -9,7 +8,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.ListIterator;
 
-@Slf4j
 public class TodoData {
 
     // == fields ==
